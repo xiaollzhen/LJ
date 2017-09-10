@@ -20,9 +20,8 @@ firefox_profile.set_preference('browser.migration.version', 9001)
 
 driver = webdriver.Firefox(firefox_profile)
 driver.set_page_load_timeout(10)
-#####################
-# 思路是指定日期，取所有最新
-####################
+t_str = '2015-04-07 19:11:21'
+
 
 
 def getData(url):
@@ -103,11 +102,11 @@ def writeFile(date):
 
         print('pageIndex:   ' + str(pageIndex))
         try:
-            driver.get('https://bj.lianjia.com/chengjiao/xicheng/pg' + str(pageIndex))
+            driver.get('https://bj.lianjia.com/chengjiao/shijingshan/pg' + str(pageIndex))
         except Exception, e:
-            print 'driver error'+str(e)
+            print 'driver error'
             continue
-        info = driver.find_elements_by_class_name('info')
+        info = driver.find_element_by_class_name('listContent').find_elements_by_class_name('info')
         titles = []
         for i in info:
             try:
@@ -120,7 +119,8 @@ def writeFile(date):
                 title = i.find_element_by_partial_link_text('平米').get_attribute("href")
                 titles.append(title)
             except Exception, e:
-                f.write('get titles error'+str(e))
+                f.write('get titles error'+str(pageIndex))
+                end = True
         for url in titles:
             try:
                 data = getData(url)
@@ -136,21 +136,27 @@ def writeFile(date):
 
 
     for error_url in error_urls:
+        print 'it is ok'
         try:
             data = getData(error_url)
         except:
+            print 'start all over'
             f.write('error occured!!!!!!!!!!!!!\n')
             f.close()
             break
         for data_index in range(0, len(data)):
             ws.write(num, data_index, json.dumps(data[data_index], ensure_ascii=False))
         num += 1
-    w.save('test' + '.xls')
+    w.save('石景山up99' + '.xls')
 
 
 if __name__ =="__main__":
-    ################修改这个########
-    date =  pd.to_datetime('2017-06-01 00:00:00')
+    # districtName = '/Users/lixiao24/PycharmProjects/untitled/merge/西城2017-08-11 16:02.csv'
+    # df = pd.read_csv(districtName)
+    # df['成交时间'] = pd.to_datetime(df['成交时间'])
+    # date = df['成交时间'].max()
+    # print time
+    date =  pd.to_datetime('2017-06-30 00:00:00')
     try:
         writeFile(date)
     except:

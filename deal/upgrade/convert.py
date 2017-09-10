@@ -9,9 +9,7 @@ sys.setdefaultencoding('utf-8')
 
 import csv
 
-######
-
-file = '/Users/lixiao24/PycharmProjects/untitled/accumulated/xicheng/test.xls'
+file = '/Users/lixiao/PycharmProjects/lianjia/acc/石景山up99.xls'
 
 
 def convert(file, writer):
@@ -63,7 +61,7 @@ def convert(file, writer):
 
 if __name__ =="__main__":
     f = open("11111111.txt", 'w')
-    csvfile = open(str(time.strftime('%Y-%m-%d %H:%M', time.localtime(time.time())))+'.csv', 'wb')
+    csvfile = open('石景山up'+str(time.strftime('%Y-%m-%d %H:%M', time.localtime(time.time())))+'.csv', 'wb')
     writer = csv.writer(csvfile)
     row0 = [u'小区名', u'成交时间', u'成交价格', u'成交单价', u'挂牌价格（万）', u'成交周期（天）', u'调价（次）', u'带看（次）',
             u'关注（人）', u'浏览（次）', u'房屋户型', u'所在楼层', u'总共层数', u'建筑面积', u'户型结构', u'套内面积', u'建筑类型',
