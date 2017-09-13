@@ -28,8 +28,8 @@ if __name__ =="__main__":
         data_all.append(data)
         i+=1
     print i
-    # result = pd.concat(data_all)
-    # result.to_csv('test.csv')
+    result = pd.concat(data_all)
+    result.to_csv('test.csv')
 
 
 
